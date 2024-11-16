@@ -112,7 +112,7 @@ export const Slider = ({
       className="ml-[20px] rounded-md bg-[#3399FF] px-2 py-1.5 text-center text-xs text-white"
       align="start"
       sideOffset={12}
-      disabled={!showTooltip}
+      disabled={!showTooltip && !isDragging}
     >
       <div
         ref={sliderRef}
