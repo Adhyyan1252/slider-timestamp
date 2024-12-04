@@ -17,7 +17,7 @@ interface ISliderProps {
     gaps: { start: number; end: number }[];
     dataByGapsPositions: { start: number; end: number }[];
     valueToPosition: (value: number) => number;
-    positionToValue: (position: number) => number;
+    positionToValue: (value: number) => number;
   };
   disabled?: boolean;
 }
@@ -49,6 +49,7 @@ export const Slider = ({
       e.preventDefault();
 
       setIsDragging(true);
+      setShowTooltip(true);
 
       const updatePosition = (clientX: number) => {
         if (!sliderRef.current) return;
@@ -69,6 +70,12 @@ export const Slider = ({
   );
 
   useEffect(() => {
+    if (isDragging) {
+      setShowTooltip(true);
+    } else {
+      setShowTooltip(false);
+    }
+
     if (!isDragging) return;
 
     const handleMouseMove = (e: MouseEvent | TouchEvent) => {
@@ -84,6 +91,7 @@ export const Slider = ({
 
     const handleMouseUp = () => {
       setIsDragging(false);
+      setShowTooltip(false);
     };
 
     document.addEventListener("mousemove", handleMouseMove);
