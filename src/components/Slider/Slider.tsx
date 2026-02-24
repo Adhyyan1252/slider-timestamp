@@ -36,7 +36,6 @@ export const Slider = ({
   const sliderRef = useRef<HTMLDivElement>(null);
   const thumbRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [showTooltip, setShowTooltip] = useState(false);
 
   const sliderPosition = useMemo(
     () => sliderData.valueToPosition(value),
@@ -104,7 +103,7 @@ export const Slider = ({
       delayDuration={0}
       content={
         <div>
-          {value && !isNaN(value)
+          {!isNaN(value)
             ? formatFullTimestamp(value)
             : "No value selected"}
         </div>
@@ -112,7 +111,6 @@ export const Slider = ({
       className="ml-[20px] rounded-md bg-[#3399FF] px-2 py-1.5 text-center text-xs text-white"
       align="start"
       sideOffset={12}
-      disabled={!showTooltip}
     >
       <div
         ref={sliderRef}
@@ -122,8 +120,6 @@ export const Slider = ({
         )}
         onMouseDown={handleMouseDown}
         onTouchStart={handleMouseDown}
-        onMouseEnter={() => setShowTooltip(true)}
-        onMouseLeave={() => setShowTooltip(false)}
       >
         <div className="relative h-full w-full grow bg-[#3399FF] bg-opacity-30">
           <div
