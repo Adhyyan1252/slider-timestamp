@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import './App.css';
 import { Slider } from './components/Slider/Slider';
 import { generateSampleTimestamps, generateSliderData } from './components/Slider/utils';
 
 function App() {
   const [value, setValue] = useState<number>(Date.now());
-  const timestamps = generateSampleTimestamps(5); // Generate 5 sample timestamps
+  const timestamps = useMemo(() => generateSampleTimestamps(5), []);
+  const sliderData = useMemo(() => generateSliderData(timestamps), [timestamps]);
 
   const handleChange = (newValue: number) => {
     setValue(newValue);
@@ -19,7 +20,7 @@ function App() {
           <Slider
             value={value}
             onChange={handleChange}
-            data={generateSliderData(timestamps)}
+            data={sliderData}
           />
           <div className="mt-4 text-sm text-gray-600">
             Current Value: {new Date(value).toLocaleString()}
